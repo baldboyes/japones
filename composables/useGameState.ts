@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, reactive } from 'vue';
 import type { Character } from '~/data/characters';
 import confetti from 'canvas-confetti';
 
@@ -32,7 +32,7 @@ export function useGameState(characters: Character[]) {
   const autoNextTimer = ref<number | null>(null);
   const waitTime = ref(2);
   const soundEnabled = ref(true);
-  const numOptions = ref(16);
+  const numOptions = ref(8);
   
   const stats = ref<GameStats>({
     correct: 0,
@@ -49,7 +49,7 @@ export function useGameState(characters: Character[]) {
     if (savedOptions) {
       const options: GameOptions = JSON.parse(savedOptions);
       gameMode.value = options.defaultGameMode || 'multiple-choice';
-      numOptions.value = options.numOptions || 16;
+      numOptions.value = options.numOptions || 8;
       waitTime.value = options.waitTime || 2;
       soundEnabled.value = options.soundEnabled !== false;
     }
