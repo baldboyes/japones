@@ -18,9 +18,9 @@
     <MultipleChoiceOptions
       v-if="gameMode === 'multiple-choice'"
       :options="options"
-      :selected-answer="selectedAnswer"
-      :is-correct="isCorrect"
+      :current-character="currentCharacter"
       :show-answer="showAnswer"
+      :num-options="numOptions"
       @select="checkAnswer"
     />
     
@@ -67,6 +67,7 @@ const {
   options,
   isShaking,
   canProceed,
+  numOptions,
   checkAnswer,
   checkWriting,
   nextCharacter,
