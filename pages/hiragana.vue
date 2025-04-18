@@ -47,34 +47,34 @@
 </template>
 
 <script setup lang="ts">
-import { hiraganaData } from '~/data/characters';
-import { useGameState } from '~/composables/useGameState';
-import CharacterDisplay from '~/components/CharacterDisplay.vue';
-import GameStats from '~/components/GameStats.vue';
-import MultipleChoiceOptions from '~/components/MultipleChoiceOptions.vue';
-import WritingMode from '~/components/WritingMode.vue';
-import NextButton from '~/components/NextButton.vue';
-import NavigationButtons from '~/components/NavigationButtons.vue';
+  import { hiraganaData } from '~/data/characters';
+  import { useGameState } from '~/composables/useGameState';
+  import CharacterDisplay from '~/components/CharacterDisplay.vue';
+  import GameStats from '~/components/GameStats.vue';
+  import MultipleChoiceOptions from '~/components/MultipleChoiceOptions.vue';
+  import WritingMode from '~/components/WritingMode.vue';
+  import NextButton from '~/components/NextButton.vue';
+  import NavigationButtons from '~/components/NavigationButtons.vue';
 
-const {
-  currentCharacter,
-  selectedAnswer,
-  isCorrect,
-  showAnswer,
-  gameMode,
-  userInput,
-  stats,
-  options,
-  isShaking,
-  canProceed,
-  numOptions,
-  checkAnswer,
-  checkWriting,
-  nextCharacter,
-  toggleGameMode
-} = useGameState(hiraganaData);
+  const {
+    currentCharacter,
+    selectedAnswer,
+    isCorrect,
+    showAnswer,
+    gameMode,
+    userInput,
+    stats,
+    options,
+    isShaking,
+    canProceed,
+    numOptions,
+    checkAnswer,
+    checkWriting,
+    nextCharacter,
+    toggleGameMode
+  } = useGameState(hiraganaData);
 
-definePageMeta({
-  title: 'Práctica de Hiragana'
-});
+  definePageMeta({
+    title: 'Práctica de Hiragana'
+  });
 </script> 

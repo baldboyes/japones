@@ -152,7 +152,7 @@ export function useGameState(characters: Character[]) {
   }
   
   function checkWriting(input: string) {
-    const isCorrectAnswer = input === currentCharacter.value.reading;
+    const isCorrectAnswer = input.toLowerCase() === currentCharacter.value.reading.toLowerCase();
     selectedAnswer.value = input;
     isCorrect.value = isCorrectAnswer;
     

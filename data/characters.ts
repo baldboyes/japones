@@ -19,6 +19,11 @@ export const hiraganaData: Character[] = [
   { character: 'く', reading: 'ku', romaji: 'ku' },
   { character: 'け', reading: 'ke', romaji: 'ke' },
   { character: 'こ', reading: 'ko', romaji: 'ko' },
+  { character: 'が', reading: 'ga', romaji: 'ga' },
+  { character: 'ぎ', reading: 'gi', romaji: 'gi' },
+  { character: 'ぐ', reading: 'gu', romaji: 'gu' },
+  { character: 'げ', reading: 'ge', romaji: 'ge' },
+  { character: 'ご', reading: 'go', romaji: 'go' },
   
   // S
   { character: 'さ', reading: 'sa', romaji: 'sa' },
@@ -26,6 +31,11 @@ export const hiraganaData: Character[] = [
   { character: 'す', reading: 'su', romaji: 'su' },
   { character: 'せ', reading: 'se', romaji: 'se' },
   { character: 'そ', reading: 'so', romaji: 'so' },
+  { character: 'ざ', reading: 'za', romaji: 'za' },
+  { character: 'じ', reading: 'ji', romaji: 'ji' },
+  { character: 'ず', reading: 'zu', romaji: 'zu' },
+  { character: 'ぜ', reading: 'ze', romaji: 'ze' },
+  { character: 'ぞ', reading: 'zo', romaji: 'zo' },
   
   // T
   { character: 'た', reading: 'ta', romaji: 'ta' },
@@ -33,6 +43,11 @@ export const hiraganaData: Character[] = [
   { character: 'つ', reading: 'tsu', romaji: 'tsu' },
   { character: 'て', reading: 'te', romaji: 'te' },
   { character: 'と', reading: 'to', romaji: 'to' },
+  { character: 'だ', reading: 'da', romaji: 'da' },
+  { character: 'ぢ', reading: 'ji', romaji: 'ji' },
+  { character: 'づ', reading: 'zu', romaji: 'zu' },
+  { character: 'で', reading: 'de', romaji: 'de' },
+  { character: 'ど', reading: 'do', romaji: 'do' },
   
   // N
   { character: 'な', reading: 'na', romaji: 'na' },
@@ -47,6 +62,16 @@ export const hiraganaData: Character[] = [
   { character: 'ふ', reading: 'fu', romaji: 'fu' },
   { character: 'へ', reading: 'he', romaji: 'he' },
   { character: 'ほ', reading: 'ho', romaji: 'ho' },
+  { character: 'ば', reading: 'ba', romaji: 'ba' },
+  { character: 'び', reading: 'bi', romaji: 'bi' },
+  { character: 'ぶ', reading: 'bu', romaji: 'bu' },
+  { character: 'べ', reading: 'be', romaji: 'be' },
+  { character: 'ぼ', reading: 'bo', romaji: 'bo' },
+  { character: 'ぱ', reading: 'pa', romaji: 'pa' },
+  { character: 'ぴ', reading: 'pi', romaji: 'pi' },
+  { character: 'ぷ', reading: 'pu', romaji: 'pu' },
+  { character: 'ぺ', reading: 'pe', romaji: 'pe' },
+  { character: 'ぽ', reading: 'po', romaji: 'po' },
   
   // M
   { character: 'ま', reading: 'ma', romaji: 'ma' },
@@ -89,6 +114,11 @@ export const katakanaData: Character[] = [
   { character: 'ク', reading: 'ku', romaji: 'ku' },
   { character: 'ケ', reading: 'ke', romaji: 'ke' },
   { character: 'コ', reading: 'ko', romaji: 'ko' },
+  { character: 'ガ', reading: 'ga', romaji: 'ga' },
+  { character: 'ギ', reading: 'gi', romaji: 'gi' },
+  { character: 'グ', reading: 'gu', romaji: 'gu' },
+  { character: 'ゲ', reading: 'ge', romaji: 'ge' },
+  { character: 'ゴ', reading: 'go', romaji: 'go' },
   
   // S
   { character: 'サ', reading: 'sa', romaji: 'sa' },
@@ -96,6 +126,11 @@ export const katakanaData: Character[] = [
   { character: 'ス', reading: 'su', romaji: 'su' },
   { character: 'セ', reading: 'se', romaji: 'se' },
   { character: 'ソ', reading: 'so', romaji: 'so' },
+  { character: 'ザ', reading: 'za', romaji: 'za' },
+  { character: 'ジ', reading: 'ji', romaji: 'ji' },
+  { character: 'ズ', reading: 'zu', romaji: 'zu' },
+  { character: 'ゼ', reading: 'ze', romaji: 'ze' },
+  { character: 'ゾ', reading: 'zo', romaji: 'zo' },
   
   // T
   { character: 'タ', reading: 'ta', romaji: 'ta' },
@@ -103,6 +138,11 @@ export const katakanaData: Character[] = [
   { character: 'ツ', reading: 'tsu', romaji: 'tsu' },
   { character: 'テ', reading: 'te', romaji: 'te' },
   { character: 'ト', reading: 'to', romaji: 'to' },
+  { character: 'ダ', reading: 'da', romaji: 'da' },
+  { character: 'ヂ', reading: 'ji', romaji: 'ji' },
+  { character: 'ヅ', reading: 'zu', romaji: 'zu' },
+  { character: 'デ', reading: 'de', romaji: 'de' },
+  { character: 'ド', reading: 'do', romaji: 'do' },
   
   // N
   { character: 'ナ', reading: 'na', romaji: 'na' },
@@ -117,6 +157,16 @@ export const katakanaData: Character[] = [
   { character: 'フ', reading: 'fu', romaji: 'fu' },
   { character: 'ヘ', reading: 'he', romaji: 'he' },
   { character: 'ホ', reading: 'ho', romaji: 'ho' },
+  { character: 'バ', reading: 'ba', romaji: 'ba' },
+  { character: 'ビ', reading: 'bi', romaji: 'bi' },
+  { character: 'ブ', reading: 'bu', romaji: 'bu' },
+  { character: 'ベ', reading: 'be', romaji: 'be' },
+  { character: 'ボ', reading: 'bo', romaji: 'bo' },
+  { character: 'パ', reading: 'pa', romaji: 'pa' },
+  { character: 'ピ', reading: 'pi', romaji: 'pi' },
+  { character: 'プ', reading: 'pu', romaji: 'pu' },
+  { character: 'ペ', reading: 'pe', romaji: 'pe' },
+  { character: 'ポ', reading: 'po', romaji: 'po' },
   
   // M
   { character: 'マ', reading: 'ma', romaji: 'ma' },
