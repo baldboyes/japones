@@ -81,11 +81,11 @@ export function useGameState(characters: Character[]) {
     return [correctAnswer, ...otherOptions].sort(() => Math.random() - 0.5);
   });
   
-  function playErrorSound() {
+  function playCharacterSound() {
     if (!soundEnabled.value) return;
     
-    const audio = new Audio('/sounds/error.mp3');
-    audio.volume = 0.3; // Volumen al 30%
+    const audio = new Audio(`/sounds/${currentCharacter.value.type}/${currentCharacter.value.romaji}.mp3`);
+    audio.volume = 0.5;
     audio.play().catch(e => console.log('Error al reproducir sonido:', e));
   }
   
@@ -130,7 +130,6 @@ export function useGameState(characters: Character[]) {
       showAnswer.value = true;
       
       // Efectos de error
-      playErrorSound();
       shakeCharacter();
       // Habilitar el botón de siguiente
       canProceed.value = true;
@@ -143,6 +142,9 @@ export function useGameState(characters: Character[]) {
         nextCharacter();
       }, waitTime.value * 1000);
     }
+    
+    // Reproducir el sonido del carácter
+    playCharacterSound();
     
     stats.value.totalAttempts++;
     stats.value.accuracy = (stats.value.correct / stats.value.totalAttempts) * 100;
@@ -186,7 +188,6 @@ export function useGameState(characters: Character[]) {
       showAnswer.value = true;
       
       // Efectos de error
-      playErrorSound();
       shakeCharacter();
       // Habilitar el botón de siguiente
       canProceed.value = true;
@@ -199,6 +200,9 @@ export function useGameState(characters: Character[]) {
         nextCharacter();
       }, waitTime.value * 1000);
     }
+    
+    // Reproducir el sonido del carácter
+    playCharacterSound();
     
     stats.value.totalAttempts++;
     stats.value.accuracy = (stats.value.correct / stats.value.totalAttempts) * 100;

@@ -1,7 +1,11 @@
 <template>
-  <div class="min-h-screen bg-white">
-    <main class="max-w-7xl mx-auto py-6 px-4">
-      <NuxtPage />
+  <div class="bg-white">
+    <main class="max-w-7xl mx-auto p-4 pb-20">
+      <NuxtRouteAnnouncer />
+      <NuxtLoadingIndicator />
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
     </main>
   </div>
 </template>

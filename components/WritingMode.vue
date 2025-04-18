@@ -21,31 +21,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+  import { ref, watch } from 'vue';
 
-const props = defineProps<{
-  showAnswer: boolean;
-}>();
+  const props = defineProps<{
+    showAnswer: boolean;
+  }>();
 
-const emit = defineEmits<{
-  (e: 'check', value: string): void;
-}>();
+  const emit = defineEmits<{
+    (e: 'check', value: string): void;
+  }>();
 
-const inputValue = ref('');
+  const inputValue = ref('');
 
-function handleCheck() {
-  if (inputValue.value.trim()) {
-    emit('check', inputValue.value.trim());
+  function handleCheck() {
+    if (inputValue.value.trim()) {
+      emit('check', inputValue.value.trim());
+    }
   }
-}
 
-// Limpiar el input cuando se muestra la respuesta
-watch(() => props.showAnswer, (newValue: boolean) => {
-  if (newValue) {
-    // Esperamos un momento antes de limpiar el input
-    setTimeout(() => {
-      inputValue.value = '';
-    }, 2000);
-  }
-});
+  // Limpiar el input cuando se muestra la respuesta
+  watch(() => props.showAnswer, (newValue: boolean) => {
+    if (newValue) {
+      // Esperamos un momento antes de limpiar el input
+      setTimeout(() => {
+        inputValue.value = '';
+      }, 2000);
+    }
+  });
 </script> 

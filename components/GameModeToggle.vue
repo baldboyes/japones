@@ -13,13 +13,13 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from 'vue';
+  import { defineEmits } from 'vue';
 
-defineEmits<{
-  (e: 'toggle'): void;
-}>();
+  defineEmits<{
+    (e: 'toggle'): void;
+  }>();
 
-defineOptions({
-  name: 'GameModeToggle'
-});
+  defineOptions({
+    name: 'GameModeToggle'
+  });
 </script> 

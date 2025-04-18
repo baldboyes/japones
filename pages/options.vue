@@ -14,7 +14,7 @@
           </div>
           <div class="flex items-center space-x-2">
             <button 
-              @click="defaultGameMode = 'multiple-choice'"
+              @click="selectGameMode('multiple-choice')"
               class="px-4 py-2 rounded-md"
               :class="[
                 defaultGameMode === 'multiple-choice' 
@@ -25,7 +25,7 @@
               Opciones múltiples
             </button>
             <button 
-              @click="defaultGameMode = 'writing'"
+              @click="selectGameMode('writing')"
               class="px-4 py-2 rounded-md"
               :class="[
                 defaultGameMode === 'writing' 
@@ -46,17 +46,17 @@
           </div>
           <div class="flex items-center space-x-2">
             <button 
-              v-for="num in [4, 8, 12, 16]"
-              :key="num"
-              @click="numOptions = num"
+              v-for="option in [4, 8, 16]"
+              :key="option"
+              @click="selectNumOptions(option)"
               class="px-4 py-2 rounded-md"
               :class="[
-                numOptions === num 
+                numOptions === option 
                   ? 'bg-blue-500 text-white' 
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               ]"
             >
-              {{ num }}
+              {{ option }}
             </button>
           </div>
         </div>
@@ -65,13 +65,13 @@
         <div class="flex justify-between gap-4 flex-col md:flex-row w-full">
           <div>
             <h3 class="text-lg font-medium text-gray-700">Tiempo de espera</h3>
-            <p class="text-sm text-gray-500">Tiempo en segundos antes de avanzar automáticamente</p>
+            <p class="text-sm text-gray-500">Segundos antes de pasar al siguiente carácter</p>
           </div>
           <div class="flex items-center space-x-2">
             <button 
               v-for="time in [1, 2, 3, 5]"
               :key="time"
-              @click="waitTime = time"
+              @click="selectWaitTime(time)"
               class="px-4 py-2 rounded-md"
               :class="[
                 waitTime === time 
@@ -84,21 +84,35 @@
           </div>
         </div>
         
-        <!-- Sonidos -->
+        <!-- Sonido -->
         <div class="flex justify-between gap-4 flex-col md:flex-row w-full">
           <div>
-            <h3 class="text-lg font-medium text-gray-700">Sonidos</h3>
-            <p class="text-sm text-gray-500">Activar o desactivar efectos de sonido</p>
+            <h3 class="text-lg font-medium text-gray-700">Sonido</h3>
+            <p class="text-sm text-gray-500">Reproducir sonido al cometer un error</p>
           </div>
-          <div>
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input 
-                type="checkbox" 
-                v-model="soundEnabled" 
-                class="sr-only peer"
-              >
-              <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-            </label>
+          <div class="flex items-center space-x-2">
+            <button 
+              @click="toggleSound(true)"
+              class="px-4 py-2 rounded-md"
+              :class="[
+                soundEnabled 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ]"
+            >
+              Activado
+            </button>
+            <button 
+              @click="toggleSound(false)"
+              class="px-4 py-2 rounded-md"
+              :class="[
+                !soundEnabled 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ]"
+            >
+              Desactivado
+            </button>
           </div>
         </div>
       </div>
@@ -114,7 +128,7 @@
         </div>
         <div class="flex justify-between items-center">
           <span class="text-gray-700">Precisión global</span>
-          <span class="font-medium">{{ globalAccuracy }}%</span>
+          <span class="font-medium">{{ Math.round(globalAccuracy) }}%</span>
         </div>
         <div class="flex justify-between items-center">
           <span class="text-gray-700">Mejor racha</span>
@@ -132,86 +146,89 @@
       </div>
     </div>
     
-    <div class="flex justify-between">
-      <NuxtLink 
-        to="/hiragana" 
-        class="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-      >
-        Volver a Hiragana
-      </NuxtLink>
-      
-      <button 
-        @click="saveOptions"
-        class="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600"
-      >
-        Guardar cambios
-      </button>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+  import { ref, onMounted } from 'vue';
 
-// Estado de las opciones
-const defaultGameMode = ref<'multiple-choice' | 'writing'>('multiple-choice');
-const numOptions = ref(16);
-const waitTime = ref(2);
-const soundEnabled = ref(true);
+  // Estado de las opciones
+  const defaultGameMode = ref<'multiple-choice' | 'writing'>('multiple-choice');
+  const numOptions = ref(8);
+  const waitTime = ref(1);
+  const soundEnabled = ref(true);
 
-// Estadísticas
-const totalAttempts = ref(0);
-const globalAccuracy = ref(0);
-const bestStreak = ref(0);
+  // Estadísticas
+  const totalAttempts = ref(0);
+  const globalAccuracy = ref(0);
+  const bestStreak = ref(0);
 
-// Cargar opciones guardadas
-onMounted(() => {
-  const savedOptions = localStorage.getItem('gameOptions');
-  if (savedOptions) {
-    const options = JSON.parse(savedOptions);
-    defaultGameMode.value = options.defaultGameMode || 'multiple-choice';
-    numOptions.value = options.numOptions || 16;
-    waitTime.value = options.waitTime || 2;
-    soundEnabled.value = options.soundEnabled !== false;
+  // Cargar opciones guardadas
+  onMounted(() => {
+    const savedOptions = localStorage.getItem('gameOptions');
+    if (savedOptions) {
+      const options = JSON.parse(savedOptions);
+      defaultGameMode.value = options.defaultGameMode || 'multiple-choice';
+      numOptions.value = options.numOptions || 8;
+      waitTime.value = options.waitTime || 1;
+      soundEnabled.value = options.soundEnabled !== false;
+    }
+    
+    // Cargar estadísticas
+    const savedStats = localStorage.getItem('gameStats');
+    if (savedStats) {
+      const stats = JSON.parse(savedStats);
+      totalAttempts.value = stats.totalAttempts || 0;
+      globalAccuracy.value = stats.accuracy || 0;
+      bestStreak.value = stats.bestStreak || 0;
+    }
+  });
+
+  // Funciones para seleccionar opciones y guardar automáticamente
+  function selectGameMode(mode: 'multiple-choice' | 'writing') {
+    defaultGameMode.value = mode;
+    saveOptions();
   }
-  
-  // Cargar estadísticas
-  const savedStats = localStorage.getItem('gameStats');
-  if (savedStats) {
-    const stats = JSON.parse(savedStats);
-    totalAttempts.value = stats.totalAttempts || 0;
-    globalAccuracy.value = stats.accuracy || 0;
-    bestStreak.value = stats.bestStreak || 0;
+
+  function selectNumOptions(num: number) {
+    numOptions.value = num;
+    saveOptions();
   }
-});
 
-// Guardar opciones
-function saveOptions() {
-  const options = {
-    defaultGameMode: defaultGameMode.value,
-    numOptions: numOptions.value,
-    waitTime: waitTime.value,
-    soundEnabled: soundEnabled.value
-  };
-  
-  localStorage.setItem('gameOptions', JSON.stringify(options));
-  
-  // Mostrar mensaje de éxito
-  alert('Opciones guardadas correctamente');
-}
-
-// Reiniciar estadísticas
-function resetStats() {
-  if (confirm('¿Estás seguro de que quieres reiniciar todas las estadísticas? Esta acción no se puede deshacer.')) {
-    localStorage.removeItem('gameStats');
-    totalAttempts.value = 0;
-    globalAccuracy.value = 0;
-    bestStreak.value = 0;
-    alert('Estadísticas reiniciadas correctamente');
+  function selectWaitTime(time: number) {
+    waitTime.value = time;
+    saveOptions();
   }
-}
 
-definePageMeta({
-  title: 'Opciones'
-});
+  function toggleSound(enabled: boolean) {
+    soundEnabled.value = enabled;
+    saveOptions();
+  }
+
+  // Guardar opciones
+  function saveOptions() {
+    const options = {
+      defaultGameMode: defaultGameMode.value,
+      numOptions: numOptions.value,
+      waitTime: waitTime.value,
+      soundEnabled: soundEnabled.value
+    };
+    
+    localStorage.setItem('gameOptions', JSON.stringify(options));
+  }
+
+  // Reiniciar estadísticas
+  function resetStats() {
+    if (confirm('¿Estás seguro de que quieres reiniciar todas las estadísticas? Esta acción no se puede deshacer.')) {
+      localStorage.removeItem('gameStats');
+      totalAttempts.value = 0;
+      globalAccuracy.value = 0;
+      bestStreak.value = 0;
+      alert('Estadísticas reiniciadas correctamente');
+    }
+  }
+
+  definePageMeta({
+    title: 'Opciones'
+  });
 </script> 

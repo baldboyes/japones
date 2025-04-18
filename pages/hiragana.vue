@@ -1,16 +1,18 @@
 <template>
   <div class="max-w-4xl mx-auto">
     <!-- Estadísticas -->
-    <GameStats :stats="stats" />
+    
     
     <!-- Carácter actual -->
     <div class="flex flex-col items-center gap-8 py-12">
+      <CharacterDisplay
+        :character="currentCharacter"
+        :is-shaking="isShaking"
+        :game-mode="gameMode"
+        @toggle="toggleGameMode"
+      />
       <div class="text-center">
-        <CharacterDisplay
-          :character="currentCharacter"
-          :is-shaking="isShaking"
-        />
-        <p class="text-2xl mt-4">{{ showAnswer ? currentCharacter.reading : '&nbsp;' }}</p>
+        <p class="text-2xl">{{ showAnswer ? currentCharacter.reading : '&nbsp;' }}</p>
       </div>
     </div>
     
@@ -31,18 +33,11 @@
       :is-correct="isCorrect"
       @check="checkWriting"
     />
-    
-    <!-- Botón siguiente -->
-    <NextButton
-      :can-proceed="canProceed"
-      @next="nextCharacter"
-    />
-    
-    <!-- Navegación -->
-    <NavigationButtons 
-      :game-mode="gameMode"
-      @toggle="toggleGameMode" 
-    />
+
+    <div class="absolute bottom-28 left-0 px-4 w-full">
+      <GameStats :stats="stats" class="w-full max-w-4xl mx-auto" />
+    </div>
+
   </div>
 </template>
 
@@ -53,24 +48,18 @@
   import GameStats from '~/components/GameStats.vue';
   import MultipleChoiceOptions from '~/components/MultipleChoiceOptions.vue';
   import WritingMode from '~/components/WritingMode.vue';
-  import NextButton from '~/components/NextButton.vue';
-  import NavigationButtons from '~/components/NavigationButtons.vue';
 
   const {
     currentCharacter,
-    selectedAnswer,
     isCorrect,
     showAnswer,
     gameMode,
-    userInput,
     stats,
     options,
     isShaking,
-    canProceed,
     numOptions,
     checkAnswer,
     checkWriting,
-    nextCharacter,
     toggleGameMode
   } = useGameState(hiraganaData);
 
