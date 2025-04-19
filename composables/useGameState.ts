@@ -16,6 +16,7 @@ export interface GameOptions {
   numOptions: number;
   waitTime: number;
   soundEnabled: boolean;
+  confettiEnabled: boolean;
 }
 
 export function useGameState(characters: Character[]) {
@@ -32,6 +33,7 @@ export function useGameState(characters: Character[]) {
   const autoNextTimer = ref<number | null>(null);
   const waitTime = ref(2);
   const soundEnabled = ref(true);
+  const confettiEnabled = ref(true);
   const numOptions = ref(8);
   
   const stats = ref<GameStats>({
@@ -52,6 +54,7 @@ export function useGameState(characters: Character[]) {
       numOptions.value = options.numOptions || 8;
       waitTime.value = options.waitTime || 2;
       soundEnabled.value = options.soundEnabled !== false;
+      confettiEnabled.value = options.confettiEnabled !== false;
     }
     
     // Cargar estadísticas
@@ -105,13 +108,15 @@ export function useGameState(characters: Character[]) {
       stats.value.streak++;
       if (stats.value.streak > stats.value.bestStreak) {
         stats.value.bestStreak = stats.value.streak;
-        // Confeti especial solo cuando se alcanza una nueva mejor racha
-        confetti({
-          particleCount: 200,
-          spread: 160,
-          origin: { y: 0.6 },
-          colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
-        });
+        // Confeti especial solo cuando se alcanza una nueva mejor racha y está habilitado
+        if (confettiEnabled.value) {
+          confetti({
+            particleCount: 200,
+            spread: 160,
+            origin: { y: 0.6 },
+            colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+          });
+        }
       }
       
       // Mostrar la respuesta correcta
@@ -166,9 +171,18 @@ export function useGameState(characters: Character[]) {
       stats.value.streak++;
       if (stats.value.streak > stats.value.bestStreak) {
         stats.value.bestStreak = stats.value.streak;
+        // Confeti especial solo cuando se alcanza una nueva mejor racha y está habilitado
+        if (confettiEnabled.value) {
+          confetti({
+            particleCount: 200,
+            spread: 160,
+            origin: { y: 0.6 },
+            colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+          });
+        }
       }
       
-      // Mostrar confeti y la respuesta correcta
+      // Mostrar la respuesta correcta
       showAnswer.value = true;
       
       // Efectos de confeti especiales según la racha
@@ -286,6 +300,7 @@ export function useGameState(characters: Character[]) {
     canProceed,
     waitTime,
     soundEnabled,
+    confettiEnabled,
     checkAnswer,
     checkWriting,
     nextCharacter,

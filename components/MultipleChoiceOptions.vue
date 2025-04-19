@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue';
+  import { computed, watch } from 'vue';
 
   const props = defineProps<{
     options: string[];
@@ -48,4 +48,18 @@
       emit('select', option);
     }
   };
+
+  // Limpiar la selección cuando se muestra la respuesta
+  watch(() => props.showAnswer, (newValue: boolean) => {
+    if (newValue) {
+      // Esperamos un momento antes de limpiar la selección
+      setTimeout(() => {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+          button.classList.remove('bg-green-500', 'text-white', 'border-green-600');
+          button.classList.add('bg-white', 'hover:bg-gray-100', 'text-gray-800');
+        });
+      }, 2000);
+    }
+  });
 </script> 

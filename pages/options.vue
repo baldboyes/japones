@@ -88,7 +88,7 @@
         <div class="flex justify-between gap-4 flex-col md:flex-row w-full">
           <div>
             <h3 class="text-lg font-medium text-gray-700">Sonido</h3>
-            <p class="text-sm text-gray-500">Reproducir sonido al cometer un error</p>
+            <p class="text-sm text-gray-500">Reproducir sonido al mostrar la respuesta</p>
           </div>
           <div class="flex items-center space-x-2">
             <button 
@@ -107,6 +107,38 @@
               class="px-4 py-2 rounded-md"
               :class="[
                 !soundEnabled 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ]"
+            >
+              Desactivado
+            </button>
+          </div>
+        </div>
+        
+        <!-- Confeti -->
+        <div class="flex justify-between gap-4 flex-col md:flex-row w-full">
+          <div>
+            <h3 class="text-lg font-medium text-gray-700">Confeti</h3>
+            <p class="text-sm text-gray-500">Mostrar confeti al superar la mejor racha</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button 
+              @click="toggleConfetti(true)"
+              class="px-4 py-2 rounded-md"
+              :class="[
+                confettiEnabled 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ]"
+            >
+              Activado
+            </button>
+            <button 
+              @click="toggleConfetti(false)"
+              class="px-4 py-2 rounded-md"
+              :class="[
+                !confettiEnabled 
                   ? 'bg-blue-500 text-white' 
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               ]"
@@ -157,6 +189,7 @@
   const numOptions = ref(8);
   const waitTime = ref(1);
   const soundEnabled = ref(true);
+  const confettiEnabled = ref(true);
 
   // Estadísticas
   const totalAttempts = ref(0);
@@ -172,6 +205,7 @@
       numOptions.value = options.numOptions || 8;
       waitTime.value = options.waitTime || 1;
       soundEnabled.value = options.soundEnabled !== false;
+      confettiEnabled.value = options.confettiEnabled !== false;
     }
     
     // Cargar estadísticas
@@ -205,13 +239,19 @@
     saveOptions();
   }
 
+  function toggleConfetti(enabled: boolean) {
+    confettiEnabled.value = enabled;
+    saveOptions();
+  }
+
   // Guardar opciones
   function saveOptions() {
     const options = {
       defaultGameMode: defaultGameMode.value,
       numOptions: numOptions.value,
       waitTime: waitTime.value,
-      soundEnabled: soundEnabled.value
+      soundEnabled: soundEnabled.value,
+      confettiEnabled: confettiEnabled.value
     };
     
     localStorage.setItem('gameOptions', JSON.stringify(options));
