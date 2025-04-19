@@ -2,7 +2,7 @@
   <div class="grid gap-2" :class="gridClass">
     <button
       v-for="option in options"
-      :key="option"
+      :key="`${currentCharacter.character}-${option}`"
       @click="selectOption(option)"
       class="p-4 text-lg font-medium rounded-lg transition-colors border border-gray-200"
       :class="buttonClass(option)"
@@ -18,7 +18,7 @@
 
   const props = defineProps<{
     options: string[];
-    currentCharacter: { reading: string };
+    currentCharacter: { reading: string; character: string };
     showAnswer: boolean;
     numOptions: number;
     selectedAnswer?: string;
