@@ -54,11 +54,8 @@
     if (newValue) {
       // Esperamos un momento antes de limpiar la selección
       setTimeout(() => {
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => {
-          button.classList.remove('bg-green-500', 'text-white', 'border-green-600');
-          button.classList.add('bg-white', 'hover:bg-gray-100', 'text-gray-800');
-        });
+        // No es necesario manipular el DOM directamente
+        // El cambio de showAnswer a false ya reiniciará los botones
       }, 2000);
     }
   });
