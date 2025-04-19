@@ -23,6 +23,7 @@
       :current-character="currentCharacter"
       :show-answer="showAnswer"
       :num-options="numOptions"
+      :selected-answer="selectedAnswer"
       @select="checkAnswer"
     />
     
@@ -60,7 +61,8 @@
     numOptions,
     checkAnswer,
     checkWriting,
-    toggleGameMode
+    toggleGameMode,
+    selectedAnswer
   } = useGameState(hiraganaData);
 
   definePageMeta({

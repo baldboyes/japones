@@ -21,6 +21,7 @@
       :current-character="currentCharacter"
       :show-answer="showAnswer"
       :num-options="numOptions"
+      :selected-answer="selectedAnswer"
       @select="checkAnswer"
     />
     
@@ -58,7 +59,8 @@ const {
   numOptions,
   checkAnswer,
   checkWriting,
-  toggleGameMode
+  toggleGameMode,
+  selectedAnswer
 } = useGameState(katakanaData);
 
 definePageMeta({

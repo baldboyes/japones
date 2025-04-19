@@ -21,6 +21,7 @@
     currentCharacter: { reading: string };
     showAnswer: boolean;
     numOptions: number;
+    selectedAnswer?: string;
   }>();
 
   const emit = defineEmits<{
@@ -38,6 +39,10 @@
     
     if (option === props.currentCharacter.reading) {
       return 'bg-green-500 text-white border-green-600';
+    }
+    
+    if (props.selectedAnswer && option === props.selectedAnswer) {
+      return 'bg-red-500 text-white border-red-600';
     }
     
     return 'bg-gray-200 text-gray-600 cursor-not-allowed';
