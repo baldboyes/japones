@@ -4,7 +4,7 @@
       v-for="option in options"
       :key="`${currentCharacter.character}-${option}`"
       @click="selectOption(option)"
-      class="p-4 text-lg font-medium rounded-lg border border-gray-200 active:bg-white"
+      class="p-4 text-lg font-medium rounded-lg transition-colors border border-gray-200"
       :class="getButtonClass(option)"
       :disabled="showAnswer"
     >
@@ -39,7 +39,7 @@
   const getButtonClass = (option: string) => {
     // Si no se muestra la respuesta, todos los botones deben ser blancos
     if (!props.showAnswer) {
-      return 'bg-white hover:bg-gray-100 text-gray-800';
+      return 'bg-white md:hover:bg-gray-100 text-gray-800';
     }
     
     // Si se muestra la respuesta, resaltar la correcta en verde
@@ -53,7 +53,7 @@
     }
     
     // Las demás opciones en gris
-    return 'bg-white text-gray-800 cursor-not-allowed';
+    return 'bg-gray-200 text-gray-600 cursor-not-allowed';
   };
 
   const selectOption = (option: string) => {
