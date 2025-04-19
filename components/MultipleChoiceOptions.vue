@@ -4,7 +4,7 @@
       v-for="option in options"
       :key="`${currentCharacter.character}-${option}`"
       @click="selectOption(option)"
-      class="p-4 text-lg font-medium rounded-lg transition-colors border border-gray-200"
+      class="p-4 text-lg font-medium rounded-lg transition-colors border border-gray-200 active:bg-white"
       :class="getButtonClass(option)"
       :disabled="showAnswer"
     >
