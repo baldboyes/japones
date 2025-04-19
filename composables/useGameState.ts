@@ -105,15 +105,18 @@ export function useGameState(characters: Character[]) {
       stats.value.streak++;
       if (stats.value.streak > stats.value.bestStreak) {
         stats.value.bestStreak = stats.value.streak;
+        // Confeti especial solo cuando se alcanza una nueva mejor racha
+        confetti({
+          particleCount: 200,
+          spread: 160,
+          origin: { y: 0.6 },
+          colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+        });
       }
       
-      // Mostrar confeti y la respuesta correcta
+      // Mostrar la respuesta correcta
       showAnswer.value = true;
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+      
       // Habilitar el botón de siguiente
       canProceed.value = true;
       
@@ -167,11 +170,32 @@ export function useGameState(characters: Character[]) {
       
       // Mostrar confeti y la respuesta correcta
       showAnswer.value = true;
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+      
+      // Efectos de confeti especiales según la racha
+      if (stats.value.streak % 10 === 0) {
+        // Cada 10 respuestas correctas: confeti más abundante y colorido
+        confetti({
+          particleCount: 200,
+          spread: 160,
+          origin: { y: 0.6 },
+          colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+        });
+      } else if (stats.value.streak % 5 === 0) {
+        // Cada 5 respuestas correctas: confeti más abundante
+        confetti({
+          particleCount: 150,
+          spread: 120,
+          origin: { y: 0.6 }
+        });
+      } else {
+        // Confeti normal para respuestas correctas
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+      
       // Habilitar el botón de siguiente
       canProceed.value = true;
       

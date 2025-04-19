@@ -3,6 +3,7 @@
     <main class="max-w-7xl mx-auto p-4 pb-20">
       <NuxtRouteAnnouncer />
       <NuxtLoadingIndicator />
+      <NuxtPwaManifest />
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
