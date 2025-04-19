@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-2" :class="gridClass">
-    <div
+    <button
       v-for="option in options"
       :key="`${currentCharacter.character}-${option}`"
       @click="selectOption(option)"
@@ -8,8 +8,8 @@
       :class="getButtonClass(option)"
       :disabled="showAnswer"
     >
-       - {{ option }}
-    </div>
+      {{ option }}
+    </button>
   </div>
 </template>
 
@@ -53,7 +53,7 @@
     }
     
     // Las demás opciones en gris
-    return 'bg-gray-200 text-gray-600 cursor-not-allowed';
+    return 'bg-white text-gray-800 cursor-not-allowed';
   };
 
   const selectOption = (option: string) => {
