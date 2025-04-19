@@ -8,7 +8,7 @@
       :class="getButtonClass(option)"
       :disabled="showAnswer"
     >
-      {{ option }}
+       - {{ option }}
     </div>
   </div>
 </template>
