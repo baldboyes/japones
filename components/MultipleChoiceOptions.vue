@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-2" :class="gridClass">
-    <button
+    <div
       v-for="option in options"
       :key="`${currentCharacter.character}-${option}`"
       @click="selectOption(option)"
@@ -9,7 +9,7 @@
       :disabled="showAnswer"
     >
       {{ option }}
-    </button>
+    </div>
   </div>
 </template>
 
